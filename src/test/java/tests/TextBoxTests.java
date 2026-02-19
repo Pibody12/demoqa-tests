@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -20,16 +19,37 @@ public class TextBoxTests {
 
     @Test
     void fillFormTest() {
+        String userName = "Tim Drob";
+        String userEmail = "tim@test.ru";
+        String currentAddress = "Some street 1";
+        String permanentAddress = "Another street 1";
+
+
         open("/text-box");
-        $("#userName").setValue("Tim");
-        $("#userEmail").setValue("tim@test.ru");
-        $("#currentAddress").setValue("Some street 1");
-        $("#permanentAddress").setValue("Another street 1");
+        $("#userName").setValue(userName);
+        $("#userEmail").setValue(userEmail);
+        $("#currentAddress").setValue(currentAddress);
+        $("#permanentAddress").setValue(permanentAddress);
         $("#submit").click();
 
-        $("#output #name").shouldHave(text("Tim"));
-        $("#output #email").shouldHave(text("tim@test.ru"));
-        $("#output #currentAddress").shouldHave(text("Some street 1"));
-        $("#output #permanentAddress").shouldHave(text("Another street 1"));
+        $("#output #name").shouldHave(text(userName));
+        $("#output #email").shouldHave(text(userEmail));
+        $("#output #currentAddress").shouldHave(text(currentAddress));
+        $("#output #permanentAddress").shouldHave(text(permanentAddress));
+    }
+
+    @Test
+    void fillFormWithoutAddressTest() {
+        String userName = "Tim Drob";
+        String userEmail = "tim@test.ru";
+
+
+        open("/text-box");
+        $("#userName").setValue(userName);
+        $("#userEmail").setValue(userEmail);
+        $("#submit").click();
+
+        $("#output #name").shouldHave(text(userName));
+        $("#output #email").shouldHave(text(userEmail));
     }
 }
